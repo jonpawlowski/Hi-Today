@@ -12,6 +12,7 @@ var express = require('express'),
   api = require('./routes/api'),
   http = require('http'),
   path = require('path');
+  sass = require('node-sass-middleware');
 
 var app = module.exports = express();
 
@@ -28,6 +29,16 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride());
+/**
+ * compile sass to csss dynamically
+ * **/
+app.use(sass({
+  src : __dirname + '/public/sass',
+  des : __dirname + '/public/css',
+  debug : true,
+  outputStyle : 'compressed'
+}));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 var env = process.env.NODE_ENV || 'development';
