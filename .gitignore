@@ -1,1 +1,14 @@
-
+.DS_Store
+.DS_Store?
+bower_components
+Thumbs.db
+*.orig
+*.patch
+conf/cache-token.js
+node_modules
+public/js/lib
+.vagrant
+playbooks/keys
+conf/default.json
+*.retry
+npm-debug.log
