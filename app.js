@@ -8,16 +8,17 @@ var express = require('express'),
   methodOverride = require('method-override'),
   errorHandler = require('errorhandler'),
   morgan = require('morgan'),
-  chalk = require('chalk');
+  chalk = require('chalk'),
   routes = require('./routes'),
   api = require('./routes/api'),
   http = require('http'),
-  path = require('path');
-  sass = require('node-sass-middleware');
-  mongoose = require('mongoose');
+  path = require('path'),
+  sass = require('node-sass-middleware'),
+  mongoose = require('mongoose'),
   task = require('./database/task_schema');
-var app = module.exports = express();
+  var _ = require('lodash');
 
+var app = module.exports = express();
 
 /**
  * Configuration
@@ -46,13 +47,44 @@ db.on('error', function(err){
 });
 
 db.once('open', function(){
+
   console.log(chalk.cyan("Database Connect Successfully!"));
+
+  /**
+   * Initialize the test instance
+   * **/
+
+  var testTask = new task({
+    name: 'testTask',
+    status: false,
+    description: "Test db connection and schema initializing"
+  });
+
+  /**
+   * Only save one time
+   * **/
+
+  task.find({name: testTask.name}, function(err, data){
+    if(err){
+      console.log(chalk.red(err));
+    }else if(data.length <= 0){
+      testTask.save(function(err){
+        if(err){
+          console.log(chalk.red("Error Found during save test data: "+err.message));
+        }else{
+          console.log(chalk.cyan('DB Test Pass'));
+        }
+      })
+    }else{
+      console.log(chalk.cyan("Test data existing already"));
+    }
+  });
 
   /**
    * Store DB instance in the request object
    * **/
 
-  app.use("*", function(req, res, next){
+  app.use(function(req, res, next){
     if(task){
       req.task_db = task;
       next();
@@ -60,24 +92,6 @@ db.once('open', function(){
       next();
     }
   });
-
-  var testTask = new task({
-    name: 'testTask',
-    status: false,
-    description: "Test db connection and schema initializing"
-  });
-  /**
-   * Only save one time
-   * **/
-  if(!task.find({name: testTask.name})){
-    testTask.save(function(err){
-      if(err){
-        console.log(chalk.red("Error Found during save test data: "+err.message));
-      }else{
-        console.log(chalk.cyan('DB Test Pass'));
-      }
-    });
-  }
 });
 
 /**
