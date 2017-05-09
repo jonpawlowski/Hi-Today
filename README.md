@@ -24,5 +24,5 @@ Start watch frontend file by run:
 $ gulp watch;
 ```
 
-APP Logic:
+Full APP Logic:
 ![IMAGE ALT TEXT HERE](https://cask.scotch.io/2013/11/mean.jpg)
