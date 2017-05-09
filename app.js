@@ -79,21 +79,20 @@ db.once('open', function(){
       console.log(chalk.cyan("Test data existing already"));
     }
   });
-
-  /**
-   * Store DB instance in the request object
-   * **/
-
-  app.use(function(req, res, next){
-    if(task){
-      req.task_db = task;
-      next();
-    }else{
-      next();
-    }
-  });
 });
 
+/**
+ * Store DB instance in the request object
+ * **/
+
+app.use(function(req, res, next){
+  if(task){
+    req.task_db = task;
+    next();
+  }else{
+    next();
+  }
+});
 /**
  * compile sass to csss dynamically
  * **/
@@ -129,6 +128,9 @@ app.get('/partials/:name', routes.partials);
 
 // JSON API
 app.get('/api/name', api.name);
+
+//CRUD API for todo-list
+app.use('/api/task', api.task);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
