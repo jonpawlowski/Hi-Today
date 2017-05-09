@@ -8,13 +8,14 @@ var express = require('express'),
   methodOverride = require('method-override'),
   errorHandler = require('errorhandler'),
   morgan = require('morgan'),
+  chalk = require('chalk');
   routes = require('./routes'),
   api = require('./routes/api'),
   http = require('http'),
   path = require('path');
   sass = require('node-sass-middleware');
   mongoose = require('mongoose');
-
+  task = require('./database/task_schema');
 var app = module.exports = express();
 
 
@@ -35,15 +36,48 @@ app.use(methodOverride());
  * connect db
  * todo: put this code to /config dir
  * **/
-mongoose.connect('mongodb://localhost/tasks');
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/TodoList');
 
 var db = mongoose.connection;
+
 db.on('error', function(err){
-  console.log("Error Found while connecting to database: " + err.message);
+  console.log(chalk.red("Error Found while connecting to database: " + err.message));
 });
+
 db.once('open', function(){
-  console.log("Database Connect Successfully!");
-//  todo setup schema here
+  console.log(chalk.cyan("Database Connect Successfully!"));
+
+  /**
+   * Store DB instance in the request object
+   * **/
+
+  app.use("*", function(req, res, next){
+    if(task){
+      req.task_db = task;
+      next();
+    }else{
+      next();
+    }
+  });
+
+  var testTask = new task({
+    name: 'testTask',
+    status: false,
+    description: "Test db connection and schema initializing"
+  });
+  /**
+   * Only save one time
+   * **/
+  if(!task.find({name: testTask.name})){
+    testTask.save(function(err){
+      if(err){
+        console.log(chalk.red("Error Found during save test data: "+err.message));
+      }else{
+        console.log(chalk.cyan('DB Test Pass'));
+      }
+    });
+  }
 });
 
 /**
@@ -91,5 +125,5 @@ app.get('*', routes.index);
  */
 
 http.createServer(app).listen(app.get('port'), function () {
-  console.log('Express server listening on port ' + app.get('port'));
+  console.log(chalk.yellow('Express server listening on port ' + app.get('port')));
 });

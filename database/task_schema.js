@@ -15,7 +15,7 @@ var taskSchema = new Schema({
   createdBy: String,
   name: { type: String, required: true },
   status: { type: Boolean, required: true },
-  Description: String,
+  description: String,
   created_at: Date,
   updated_at: Date
 });
@@ -27,14 +27,7 @@ var taskSchema = new Schema({
  * **/
 
 taskSchema.methods.checkName = function(name) {
-  taskSchema.find({name: name}, function (err, user) {
-    if (err || user == "") {
-      return false;
-    }
-    if (user) {
-      return true;
-    }
-  })
+
 }
 
 /**
@@ -49,6 +42,7 @@ taskSchema.pre('save', function(next){
   if(!this.created_at){
     this.created_at = current_date;
   }
+  next();
 });
 
 var Task = mongoose.model('Task', taskSchema);
