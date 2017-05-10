@@ -5,7 +5,7 @@
   "scripts": {
     "postinstall": "bower install",
     "start": "node app.js",
-    "watch": "nodemon app.js"
+    "watch": "nodemon --watch app.js --watch routes"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
