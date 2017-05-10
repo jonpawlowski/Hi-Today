@@ -14,6 +14,7 @@ exports.name = function (req, res) {
 /**
  * API define here
  * **/
+
 router.use(function(req, res, next){
   if(req.task_db){
     next();
@@ -76,10 +77,10 @@ router.get('/', function(req, res, next){
  * **/
 
 router.post('/', function(req, res, next){
-  if(req.body){
+  if(!_.isEmpty(req.body)){
   //  todo check post data, should have a test function to check req.body data
   //  todo before instance new document
-    if(req.task_db.find({name: req.body.name}, function (err, data) {
+    req.task_db.find({name: req.body.name}, function (err, data) {
       if(!data.length){
         var temp = req.task_db(req.body);
         temp.save(function (err) {
@@ -87,11 +88,11 @@ router.post('/', function(req, res, next){
           getAll(req, res);
         });
       }else{
-        getAll(req, res);
+        next(new Error("Can not create same task again"));
       }
-    }));
+    });
   }else{
-    next();
+    next(new Error("Create Fail, body is empty"));
   }
 });
 
@@ -99,18 +100,39 @@ router.post('/', function(req, res, next){
  * url: /api/task
  * method: delate
  * behaviour: Delete one task by Id or delete all tasks by status
+ * if query object is empty, fetch all tasks;
  * **/
 
 router.delete('/', function(req, res, next){
   if(!_.isEmpty(req.query)){
     req.task_db.find(req.query, function(err, data){
       if(err) res.send(err);
-      if(data){
+      if(data.length){
         req.task_db.deleteMany(req.query).then(getAll(req, res));
+      }else{
+        next(new Error('Can not find match task to delete'));
       }
     })
   }else{
-    next();
+    getAll(req, res);
+  }
+});
+
+/**
+ * url: /api/task
+ * method: update
+ * behaviour: update one task
+ * if query object is empty, fetch all tasks;
+ * **/
+
+router.put('/', function(req, res, next){
+  if(!_.isEmpty(req.body) && !_.isEmpty(req.query.id)){
+    req.task_db.findByIdAndUpdate(req.query.id, req.body, function(err){
+      if(err) res.send(err);
+      getAll(req, res);
+    })
+  }else{
+    next(new Error('Can not find target to update'));
   }
 });
 
