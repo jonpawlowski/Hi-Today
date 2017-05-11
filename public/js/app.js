@@ -14,17 +14,18 @@ angular.module('myApp', [
   $routeProvider
 
     .when('/view1', {
-      templateUrl: 'templates/partials/partial1.jade',
+      templateUrl: 'build-templates/partials/partial1.html',
       controller: 'MyCtrl1'
     })
     .when('/view2', {
-      templateUrl: 'templates/partials/partial2.jade',
+      templateUrl: 'build-templates/partials/partial2.html',
       controller: 'MyCtrl2'
     })
     .when('/task', {
-      templateUrl: 'templates/taskHome.jade',
+      templateUrl: 'build-templates/taskHome.html',
       controller: 'taskHomeController',
       controllerAs: 'home'
     });
+
   $locationProvider.html5Mode(true);
 });

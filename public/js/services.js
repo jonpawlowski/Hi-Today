@@ -11,11 +11,15 @@ angular.module('myApp.services', [])
   .service('httpCaller', ['$http', httpCaller]);
 
 function httpCaller ($http) {
-  var self = this;
-  self.getAllTasks = function() {
+    var self = this;
+    /**
+     * get
+     * **/
+    self.getAllTasks = function() {
       return $http({
           method: 'GET',
           url: '/api/task'
         });
     }
+
   }
