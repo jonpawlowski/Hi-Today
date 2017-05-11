@@ -121,19 +121,17 @@ if (env === 'production') {
 /**
  * Routes
  */
-
-// serve index and view partials
-app.get('/', routes.index);
-app.get('/partials/:name', routes.partials);
-
 // JSON API
 app.get('/api/name', api.name);
 
 //CRUD API for todo-list
 app.use('/api/task', api.task);
 
+// serve index and view partials
+app.get('/', routes.index);
+
 // redirect all others to the index (HTML5 history)
-app.get('*', routes.index);
+// app.get('*', routes.index);
 
 
 /**

@@ -8,20 +8,23 @@ angular.module('myApp', [
   'myApp.services',
   'myApp.directives',
   'ngRoute'
-]).
-config(function ($routeProvider, $locationProvider) {
-  $routeProvider.
-    when('/view1', {
-      templateUrl: 'partials/partial1',
-      controller: 'MyCtrl1'
-    }).
-    when('/view2', {
-      templateUrl: 'partials/partial2',
-      controller: 'MyCtrl2'
-    }).
-    otherwise({
-      redirectTo: '/view1'
-    });
+])
+.config(function ($routeProvider, $locationProvider) {
 
+  $routeProvider
+
+    .when('/view1', {
+      templateUrl: 'templates/partials/partial1.jade',
+      controller: 'MyCtrl1'
+    })
+    .when('/view2', {
+      templateUrl: 'templates/partials/partial2.jade',
+      controller: 'MyCtrl2'
+    })
+    .when('/task', {
+      templateUrl: 'templates/taskHome.jade',
+      controller: 'taskHomeController',
+      controllerAs: 'home'
+    });
   $locationProvider.html5Mode(true);
 });

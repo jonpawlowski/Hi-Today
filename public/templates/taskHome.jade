@@ -1,0 +1,5 @@
+button(ng-click="home.getAllTasks()") Show All Task
+section(ng-if="home.taskLists.data.length")
+    div Task List
+    div(ng-repeat="(key, value) in home.taskLists.data")
+        div {{value.name}}
