@@ -4,7 +4,7 @@
 
 angular.module('myApp.controllers', ['myApp.services'])
 
-  .controller('AppCtrl', function ($scope, $http) {
+  .controller('AppCtrl', function ($scope, $http, $location) {
 
 	$http({
 	  method: 'GET',
@@ -19,21 +19,26 @@ angular.module('myApp.controllers', ['myApp.services'])
   })
 
   .controller('taskHomeController', function (httpCaller, $scope) {
-	var self = this;
-    self.initHomepage = function() {
-      self.getAllTasks();
-	};
-	self.getAllTasks = function(){
-	  httpCaller
-		.getAllTasks()
-		.then(function(data){
-		  self.taskLists = data;
-		  console.log(self.taskLists);
-		}, function(err){
-		  console.log(err);
-		})
-	};
+
+  	var self = this;
+
+		self.initHomepage = function() {
+			self.getAllTasks();
+		};
+
+		self.getAllTasks = function(){
+			httpCaller
+			.getAllTasks()
+			.then(function(data){
+				self.taskLists = data;
+				console.log(self.taskLists);
+			}, function(err){
+				console.log(err);
+			})
+		};
+
 		self.initHomepage();
+
   })
 
   .controller('MyCtrl1', function ($scope) {

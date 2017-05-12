@@ -7,7 +7,8 @@ angular.module('myApp', [
   'myApp.filters',
   'myApp.services',
   'myApp.directives',
-  'ngRoute'
+  'ngRoute',
+  'ngMaterial'
 ])
 .config(function ($routeProvider, $locationProvider) {
 
@@ -27,5 +28,6 @@ angular.module('myApp', [
       controllerAs: 'home'
     });
 
-  $locationProvider.html5Mode(true);
+  $locationProvider
+    .html5Mode({enable: true});
 });

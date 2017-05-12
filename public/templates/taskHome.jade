@@ -1,6 +1,6 @@
 md-content
   section(ng-if="home.taskLists.data.length")
-    h1 Task List
+    h1 Today's Task List
     md-button.md-primary test
     button test
     div(ng-repeat="(key, value) in home.taskLists.data")
@@ -8,5 +8,5 @@ md-content
         md-card-title
           md-card-title-text {{value.name}}
         md-card-actions(layout="row" layout-align="end center")
-          md-button.md-primary Delete
-          md-button.md-primary Update
+          md-button.md-raised.md-primary Delete
+          md-button.md-raised.md-warn Update
