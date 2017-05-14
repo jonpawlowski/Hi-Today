@@ -1,12 +1,24 @@
 md-content
-  section(ng-if="home.taskLists.data.length")
-    h1 Today's Task List
-    md-button.md-primary test
-    button test
-    div(ng-repeat="(key, value) in home.taskLists.data")
-      md-card
-        md-card-title
-          md-card-title-text {{value.name}}
-        md-card-actions(layout="row" layout-align="end center")
-          md-button.md-raised.md-primary Delete
-          md-button.md-raised.md-warn Update
+  section(layout="column" layout-align="center center" layout-margin)
+    div
+      h1 Today's Task List
+    div(layout="row" layout-align="center center")
+      md-button(ng-click="home.getAllTasks('true')") Completed Tasks
+      md-button(ng-click="home.getAllTasks('false')") Pending Tasks
+    div(ng-if="home.serviceIsBusy")
+      md-progress-circular.md-accent(md-diameter="40")
+    div.customized-card(ng-if="home.taskLists.data.length" layout="column" layout-align="center center")
+      div(ng-repeat="(key, value) in home.taskLists.data")
+        md-card(ng-class="{'active': value.status}")
+          md-card-title
+            md-card-title-text(layout="row" layout-align='space-between center')
+              div {{value.name}}
+              div {{value.status}}
+          md-card-actions(layout="row" layout-align="end center")
+            md-button.md-raised.md-primary(ng-click="home.deleteTasks(value['_id'])") Delete
+            md-button.md-raised.md-warn Update
+    div(ng-if="!home.taskLists.data.length" layout="row")
+      div No related task
+    div(ng-if="home.errorMessage" layout="column" layout-align="center center")
+      div(ng-repeat="err in home.errorMessage")
+        div {{err}}

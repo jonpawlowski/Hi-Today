@@ -108,7 +108,9 @@ router.delete('/', function(req, res, next){
     req.task_db.find(req.query, function(err, data){
       if(err) res.send(err);
       if(data.length){
-        req.task_db.deleteMany(req.query).then(getAll(req, res));
+        req.task_db.deleteMany(req.query).then(function () {
+          getAll(req, res);
+        });
       }else{
         next(new Error('Can not find match task to delete'));
       }

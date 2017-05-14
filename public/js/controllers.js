@@ -21,20 +21,49 @@ angular.module('myApp.controllers', ['myApp.services'])
   .controller('taskHomeController', function (httpCaller, $scope) {
 
   	var self = this;
+		/**
+		 * store all the errors
+		 * **/
+		self.errorMessage = [];
+		self.serviceIsBusy = false;
 
 		self.initHomepage = function() {
 			self.getAllTasks();
 		};
 
-		self.getAllTasks = function(){
+		self.getAllTasks = function(status){
+			self.serviceIsBusy = true;
 			httpCaller
-			.getAllTasks()
-			.then(function(data){
-				self.taskLists = data;
-				console.log(self.taskLists);
-			}, function(err){
-				console.log(err);
-			})
+				.getAllTasks(status)
+				.then(function(data){
+					self.taskLists = data;
+					self.serviceIsBusy = false;
+				}, function(err){
+					self.errorMessage.push(err.message);
+					self.serviceIsBusy = false;
+				})
+		};
+
+		self.deleteTasks = function(parameters){
+			if(parameters === 'false' || parameters === 'true'){
+				httpCaller
+					.deleteTasks({'status': parameters})
+					.then(function (data) {
+							self.taskLists = data;
+					}, function (err) {
+						self.errorMessage.push(err.message);
+					});
+			}else if(parameters){
+				httpCaller
+					.deleteTasks({'id': parameters})
+					.then(function (data) {
+						self.taskLists = data;
+					}, function(err){
+						self.errorMessage.push(err.message);
+					});
+			}else{
+				self.errorMessage.push('Invalid Delete Parameters');
+			}
 		};
 
 		self.initHomepage();
