@@ -26,3 +26,6 @@ $ gulp watch;
 
 Full APP Logic:
 ![IMAGE ALT TEXT HERE](https://cask.scotch.io/2013/11/mean.jpg)
+
+Demo Page
+![IMAGE ALT TEXT HERE](md-image/demo.png?raw=true, "Demo")
