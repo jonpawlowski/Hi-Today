@@ -15,8 +15,13 @@ md-content
           md-card(ng-class="{'active': value.status}")
             md-card-title
               md-card-title-text(layout="row" layout-align='space-between center')
-                div {{value.name}}
-                div {{value.status}}
+                div.task-name {{value.name}}
+            md-card-content
+              div.task-status Status: {{value.status}}
+              div.task-description Description: {{value.description}}
+              div.task-created-by Created By: {{value.createdBy}}
+              div.task-created-at Created At: {{value.created_at}}
+              div.task-created-at Updated At: {{value.updated_at}}
             md-card-actions(layout="row" layout-align="end center")
               md-button.md-raised.md-primary(ng-click="home.deleteTasks(value['_id'])") Delete
               md-button.md-raised.md-warn(ng-click="home.showUpdateForm(value['_id'])") Update
