@@ -94,7 +94,19 @@ angular.module('myApp.controllers', ['myApp.services'])
 					})
 			}else{
 				self.errorMessage.push('Can not update task');
+				self.serviceIsBusy = false;
 			}
+		};
+
+		self.completeTask = function (id) {
+			console.log(id);
+			_.forEach(self.taskLists.data, function(value, key){
+				if(value['_id'] == id){
+					self.newTask.status = 'true';
+					self.newTask.id = value._id;
+					self.updateTask();
+				}
+			});
 		};
 
 		self.deleteTasks = function(parameters){

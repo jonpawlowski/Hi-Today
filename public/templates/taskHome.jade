@@ -11,8 +11,8 @@ md-content
       md-progress-circular.md-accent(md-diameter="40")
     div(layout="row" layout-align="space-around start")
       div.customized-card(ng-if="home.taskLists.data.length" layout="column" layout-align="center center")
-        div(ng-repeat="(key, value) in home.taskLists.data")
-          md-card(ng-class="{'active': value.status}")
+        div(ng-repeat="(key, value) in home.taskLists.data track by $index")
+          md-card(ng-class="{'active': !value.status, 'inactive': value.status}")
             md-card-title
               md-card-title-text(layout="row" layout-align='space-between center')
                 div.task-name {{value.name}}
