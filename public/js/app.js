@@ -8,7 +8,8 @@ angular.module('myApp', [
   'myApp.services',
   'myApp.directives',
   'ngRoute',
-  'ngMaterial'
+  'ngMaterial',
+  'ngMessages'
 ])
 .config(function ($routeProvider, $locationProvider) {
 

@@ -3,20 +3,45 @@ md-content
     div
       h1 Today's Task List
     div(layout="row" layout-align="center center")
+      md-button(ng-click="home.getAllTasks()") All Tasks
       md-button(ng-click="home.getAllTasks('true')") Completed Tasks
       md-button(ng-click="home.getAllTasks('false')") Pending Tasks
+      md-button.md-primary(ng-click="home.showCreateForm()") New Task
     div(ng-if="home.serviceIsBusy")
       md-progress-circular.md-accent(md-diameter="40")
-    div.customized-card(ng-if="home.taskLists.data.length" layout="column" layout-align="center center")
-      div(ng-repeat="(key, value) in home.taskLists.data")
-        md-card(ng-class="{'active': value.status}")
-          md-card-title
-            md-card-title-text(layout="row" layout-align='space-between center')
-              div {{value.name}}
-              div {{value.status}}
-          md-card-actions(layout="row" layout-align="end center")
-            md-button.md-raised.md-primary(ng-click="home.deleteTasks(value['_id'])") Delete
-            md-button.md-raised.md-warn Update
+    div(layout="row" layout-align="space-around start")
+      div.customized-card(ng-if="home.taskLists.data.length" layout="column" layout-align="center center")
+        div(ng-repeat="(key, value) in home.taskLists.data")
+          md-card(ng-class="{'active': value.status}")
+            md-card-title
+              md-card-title-text(layout="row" layout-align='space-between center')
+                div {{value.name}}
+                div {{value.status}}
+            md-card-actions(layout="row" layout-align="end center")
+              md-button.md-raised.md-primary(ng-click="home.deleteTasks(value['_id'])") Delete
+              md-button.md-raised.md-warn(ng-click="home.showUpdateForm(value['_id'])") Update
+      div.form(ng-if="home.showForm")
+        form(name="taskForm" layout-margin layout-padding)
+          md-input-container.md-block
+            label Task Name
+            input(md-maxlength="20" required name="taskName" ng-model="home.newTask.name")
+            div(ng-messages="taskForm.taskName.$error")
+              div(ng-message="required") This is required
+              div(ng-message="md-maxlength") The name exceed 20 characters
+          md-input-container.md-block
+            label Description
+            input(md-maxlength="100" name="description" ng-model="home.newTask.description")
+            div(ng-messages="taskForm.taskName.$error")
+              div(ng-message="md-maxlength") The name exceed 100 characters
+          md-input-container.md-block
+            label Created By
+            input(md-maxlength="10" name="createdBy" ng-model="home.newTask.createdBy")
+            div(ng-messages="taskForm.taskName.$error")
+              div(ng-message="md-maxlength") The name exceed 10 characters
+          div
+            md-button(ng-click="home.createNewTask()" type="submit" ng-if="!home.isUpdating") Submit
+            md-button(ng-click="home.updateTask()" type="submit" ng-if="home.isUpdating") Update
+            md-button(ng-click="home.cleanData()") Cancel
     div(ng-if="!home.taskLists.data.length" layout="row")
       div No related task
     div(ng-if="home.errorMessage" layout="column" layout-align="center center")
