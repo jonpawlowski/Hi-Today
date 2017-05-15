@@ -43,5 +43,24 @@ function httpCaller ($http) {
     }else{
       return new Error('Delete Task Fail');
     }
+  };
+
+  //create
+  self.createNewTask = function(data){
+    if(data !== null && typeof data == 'object'){
+      return $http.post('/api/task', data);
+    }else{
+      return new Error('empty task content')
+    }
+  };
+
+  //update
+  self.updateTask = function(id, data){
+    var queryUrl = "";
+    if(id && typeof data === 'object' && typeof data !== 'null'){
+      queryUrl = '/api/task?id='+id;
+      return $http.put(queryUrl, data);
+    }
   }
+
 }

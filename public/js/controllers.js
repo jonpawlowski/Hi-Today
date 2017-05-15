@@ -26,6 +26,13 @@ angular.module('myApp.controllers', ['myApp.services'])
 		 * **/
 		self.errorMessage = [];
 		self.serviceIsBusy = false;
+		self.newTask = {
+			status: '',
+			name: '',
+			description: '',
+			createdBy: ''
+		};
+		self.updateTask = {};
 
 		self.initHomepage = function() {
 			self.getAllTasks();
@@ -42,6 +49,23 @@ angular.module('myApp.controllers', ['myApp.services'])
 					self.errorMessage.push(err.message);
 					self.serviceIsBusy = false;
 				})
+		};
+
+		self.createNewTask = function(){
+      self.serviceIsBusy = true;
+			if(self.newTask.status && self.newTask.name){
+				httpCaller
+					.createNewTask(self.newTask)
+					.then(function(data){
+						self.taskLists = data;
+            self.serviceIsBusy = false;
+					}, function(err){
+						if(err){
+							self.errorMessage.push(err);
+              self.serviceIsBusy = false;
+						}
+					})
+			}
 		};
 
 		self.deleteTasks = function(parameters){
