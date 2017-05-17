@@ -22,6 +22,8 @@ angular.module('myApp.controllers', ['myApp.services'])
 
   	var self = this;
 
+		self.taskStatus = {};
+
 		self.initHomepage = function() {
 			self.serviceIsBusy = false;
 			self.cleanData();
@@ -39,8 +41,17 @@ angular.module('myApp.controllers', ['myApp.services'])
 			 * store all the errors
 			 * **/
 			self.errorMessage = [];
+		};
+
+		self.cleanForm = function () {
 			self.showForm = false;
 			self.isUpdating = false;
+		}
+
+		self.getAllTaskStatus = function(data){
+			_.forEach(data, function (value, key) {
+					self.taskStatus[value._id] = value.status;
+			});
 		};
 
 		self.getAllTasks = function(status){
@@ -49,6 +60,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 				.getAllTasks(status)
 				.then(function(data){
 					self.taskLists = data;
+					self.getAllTaskStatus(data.data);
 					self.serviceIsBusy = false;
 				}, function(err){
 					self.errorMessage.push(err.message);
@@ -65,6 +77,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 						self.taskLists = data;
             self.serviceIsBusy = false;
 						self.cleanData();
+						self.cleanForm();
 					}, function(err){
 						if(err){
 							self.errorMessage.push(err);
@@ -77,14 +90,36 @@ angular.module('myApp.controllers', ['myApp.services'])
 			}
 		};
 
+		self.showUpdateForm= function(id){
+			//control submit button type
+			self.showForm = true;
+			self.isUpdating = true;
+			_.forEach(self.taskLists.data, function(value, key){
+				if(value['_id'] == id){
+					/**
+					 * Pre-input already existing value
+					 * **/
+					self.newTask.createdBy = value.createdBy;
+					self.newTask.id = value._id;
+					self.newTask.name = value.name;
+					self.newTask.status = value.status;
+					self.newTask.description = value.description;
+				}
+			});
+		};
+
 		self.updateTask = function(){
 			self.serviceIsBusy = true;
+			/**
+			 * according the newTask object to update the whole task
+			 * **/
 			if(self.newTask.id && self.newTask !== null && typeof self.newTask == 'object'){
 				httpCaller
 					.updateTask(self.newTask.id, self.newTask)
 					.then(function(data){
 						self.taskLists = data;
 						self.serviceIsBusy = false;
+						self.cleanForm();
 						self.cleanData();
 					}, function(err){
 						if(err){
@@ -98,15 +133,48 @@ angular.module('myApp.controllers', ['myApp.services'])
 			}
 		};
 
-		self.completeTask = function (id) {
-			console.log(id);
+		/**
+		 * Logic for complete a task
+		 * get the taskId from the template,
+		 * according the task list status table to check the task status,
+		 * update the status to reverse one,
+		 * after fetch data update both tasklist and taskstatus
+		 * **/
+
+		self.completeTask = function(taskId){
 			_.forEach(self.taskLists.data, function(value, key){
-				if(value['_id'] == id){
-					self.newTask.status = 'true';
-					self.newTask.id = value._id;
-					self.updateTask();
+				if(value['_id'] == taskId){
+					if(value['status']){
+						httpCaller
+							.updateTask(value['_id'], {status: false})
+							.then(function(data){
+								self.taskLists = data;
+								self.taskStatus[value['_id']] = false;
+								self.serviceIsBusy = false;
+								self.cleanData();
+							}, function(err){
+								if(err){
+									self.errorMessage.push(err);
+									self.serviceIsBusy = false;
+								}
+							})
+					}else{
+						httpCaller
+							.updateTask(value['_id'], {status: true})
+							.then(function(data){
+								self.taskLists = data;
+								self.taskStatus[value['_id']] = true;
+								self.serviceIsBusy = false;
+								self.cleanData();
+							}, function(err){
+								if(err){
+									self.errorMessage.push(err);
+									self.serviceIsBusy = false;
+								}
+							})
+					}
 				}
-			});
+			})
 		};
 
 		self.deleteTasks = function(parameters){
@@ -135,21 +203,6 @@ angular.module('myApp.controllers', ['myApp.services'])
 			self.cleanData();
 			self.showForm = true;
 			self.isUpdating = false;
-		};
-
-		self.showUpdateForm= function(id){
-			//control submit button type
-			self.showForm = true;
-			self.isUpdating = true;
-			_.forEach(self.taskLists.data, function(value, key){
-				if(value['_id'] == id){
-					self.newTask.createdBy = value.createdBy;
-					self.newTask.id = value._id;
-					self.newTask.name = value.name;
-					self.newTask.status = value.status;
-					self.newTask.description = value.description;
-				}
-			});
 		};
 
 		self.initHomepage();

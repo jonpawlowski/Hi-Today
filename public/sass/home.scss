@@ -3,12 +3,58 @@
   padding: 0px;
 }
 
-.customized-card{
-  .active{
-    background: lightcyan;
+.todo-list{
+  .customized-card{
+    md-card{
+      padding: 15px;
+      border: 1px solid lightgray;
+      box-shadow: 3px 3px 4px lightgrey;
+      margin: 0px 0px 10px 0px;
+      md-card-title{
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 15px;
+      }
+      .task-created-at{
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+      .task-updated-at{
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+      .task-created-by{
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+      .task-description{
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+      .task-status{
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+    }
+    .active{
+      //background: lightcyan;
+    }
+    .inactive{
+      //background: lightgreen;
+    }
   }
-  .inactive{
-    background: lightgreen;
+  .form{
+    padding: 15px;
+    border: 1px solid lightgray;
+    box-shadow: 3px 3px 4px lightgrey;
+    margin-left: 20px;
+    .form-title{
+      font-size: 15px;
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 20px;
+      margin-top: 5px;
+    }
   }
 }
 
