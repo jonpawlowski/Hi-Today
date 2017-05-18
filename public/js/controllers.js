@@ -4,21 +4,21 @@
 
 angular.module('myApp.controllers', ['myApp.services'])
 
-  .controller('AppCtrl', function ($scope, $http, $location) {
+  .controller('AppCtrl', function ($scope, $http) {
 
-	$http({
-	  method: 'GET',
-	  url: '/api/name'
-	})
-	.then(function (data, status, headers, config) {
-	  $scope.name = data.data.name;
-	},function (data, status, headers, config) {
-	  $scope.name = 'Error!';
-	});
+		$http({
+			method: 'GET',
+			url: '/api/name'
+		})
+		.then(function (data, status, headers, config) {
+			$scope.name = data.data.name;
+		},function (data, status, headers, config) {
+			$scope.name = 'Error!';
+		});
 
   })
 
-  .controller('taskHomeController', function (httpCaller, $scope) {
+  .controller('taskHomeController', function (httpCaller, $scope, hi) {
 
   	var self = this;
 
@@ -63,6 +63,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 					self.getAllTaskStatus(data.data);
 					self.serviceIsBusy = false;
 				}, function(err){
+				  hi.callToast(err.message);
 					self.errorMessage.push(err.message);
 					self.serviceIsBusy = false;
 				})
@@ -86,12 +87,14 @@ angular.module('myApp.controllers', ['myApp.services'])
 						self.cleanForm();
 					}, function(err){
 						if(err){
+						  hi.callToast(err);
 							self.errorMessage.push(err);
               self.serviceIsBusy = false;
 						}
 					})
 			}else{
-				self.errorMessage.push('Status and name are missing');
+				hi.callToast('Create Fail');
+				self.errorMessage.push('Create Fail');
 				self.serviceIsBusy = false;
 			}
 		};
@@ -135,11 +138,13 @@ angular.module('myApp.controllers', ['myApp.services'])
 						self.cleanData();
 					}, function(err){
 						if(err){
+              hi.callToast(err);
 							self.errorMessage.push(err);
 							self.serviceIsBusy = false;
 						}
 					})
 			}else{
+        hi.callToast('Can not update task');
 				self.errorMessage.push('Can not update task');
 				self.serviceIsBusy = false;
 			}
@@ -164,8 +169,10 @@ angular.module('myApp.controllers', ['myApp.services'])
 								self.taskStatus[value['_id']] = false;
 								self.serviceIsBusy = false;
 								self.cleanData();
+                hi.callToast("Task Reset");
 							}, function(err){
 								if(err){
+								  hi.callToast(err);
 									self.errorMessage.push(err);
 									self.serviceIsBusy = false;
 								}
@@ -178,8 +185,10 @@ angular.module('myApp.controllers', ['myApp.services'])
 								self.taskStatus[value['_id']] = true;
 								self.serviceIsBusy = false;
 								self.cleanData();
+                hi.callToast("Task Finished");
 							}, function(err){
 								if(err){
+                  hi.callToast(err);
 									self.errorMessage.push(err);
 									self.serviceIsBusy = false;
 								}
@@ -196,6 +205,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 					.then(function (data) {
 						self.taskLists = data;
 					}, function (err) {
+            hi.callToast(err.message);
 						self.errorMessage.push(err.message);
 					});
 			}else if(parameters){
@@ -204,9 +214,11 @@ angular.module('myApp.controllers', ['myApp.services'])
 					.then(function (data) {
 						self.taskLists = data;
 					}, function(err){
+            hi.callToast(err.message);
 						self.errorMessage.push(err.message);
 					});
 			}else{
+        hi.callToast('Invalid Delete Parameters');
 				self.errorMessage.push('Invalid Delete Parameters');
 			}
 		};

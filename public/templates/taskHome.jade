@@ -54,6 +54,6 @@ md-content.todo-list
             md-button(ng-click="home.cleanForm()") Cancel
     div(ng-if="!home.taskLists.data.length" layout="row")
       div No related task
-    div(ng-if="home.errorMessage" layout="column" layout-align="center center")
-      div(ng-repeat="err in home.errorMessage")
-        div {{err}}
+    //div(ng-if="home.errorMessage" layout="column" layout-align="center center")
+    //  div(ng-repeat="err in home.errorMessage track by $index")
+    //    div {{err}}
