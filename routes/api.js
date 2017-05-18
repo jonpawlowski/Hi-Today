@@ -129,10 +129,17 @@ router.delete('/', function(req, res, next){
 
 router.put('/', function(req, res, next){
   if(!_.isEmpty(req.body) && !_.isEmpty(req.query.id)){
-    req.task_db.findByIdAndUpdate(req.query.id, req.body, function(err){
-      if(err) res.send(err);
-      getAll(req, res);
-    })
+    req.task_db.find({name: req.body.name}, function (err, data) {
+      if(!data.length){
+        req.task_db.findByIdAndUpdate(req.query.id, req.body, function(err){
+          if(err) res.send(err);
+          getAll(req, res);
+        })
+      }else{
+        next(new Error('Task name could not be same'));
+      }
+    });
+
   }else{
     next(new Error('Can not find target to update'));
   }

@@ -87,14 +87,14 @@ angular.module('myApp.controllers', ['myApp.services'])
 						self.cleanForm();
 					}, function(err){
 						if(err){
-						  hi.callToast(err);
+						  hi.callToast("Create Task Fail");
 							self.errorMessage.push(err);
               self.serviceIsBusy = false;
 						}
 					})
 			}else{
-				hi.callToast('Create Fail');
-				self.errorMessage.push('Create Fail');
+				hi.callToast('Please input required information');
+				self.errorMessage.push('Please input required information');
 				self.serviceIsBusy = false;
 			}
 		};
@@ -138,7 +138,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 						self.cleanData();
 					}, function(err){
 						if(err){
-              hi.callToast(err);
+              hi.callToast("Update task fail");
 							self.errorMessage.push(err);
 							self.serviceIsBusy = false;
 						}
