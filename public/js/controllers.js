@@ -68,9 +68,15 @@ angular.module('myApp.controllers', ['myApp.services'])
 				})
 		};
 
-		self.createNewTask = function(){
+		/**
+		 * @valid
+		 * this is parameter is pass from the frontend code
+		 * if the frontend check is pass this will be true,
+		 * otherwise false
+		 * **/
+		self.createNewTask = function(valid){
       self.serviceIsBusy = true;
-			if(self.newTask.status && self.newTask.name){
+			if(self.newTask.status && self.newTask.name && valid){
 				httpCaller
 					.createNewTask(self.newTask)
 					.then(function(data){
@@ -108,12 +114,18 @@ angular.module('myApp.controllers', ['myApp.services'])
 			});
 		};
 
-		self.updateTask = function(){
+		/**
+		 * @valid
+		 * this is parameter is pass from the frontend code
+		 * if the frontend check is pass this will be true,
+		 * otherwise false
+		 * **/
+		self.updateTask = function(valid){
 			self.serviceIsBusy = true;
 			/**
 			 * according the newTask object to update the whole task
 			 * **/
-			if(self.newTask.id && self.newTask !== null && typeof self.newTask == 'object'){
+			if(self.newTask.id && self.newTask !== null && typeof self.newTask == 'object' && valid){
 				httpCaller
 					.updateTask(self.newTask.id, self.newTask)
 					.then(function(data){
