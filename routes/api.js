@@ -21,7 +21,7 @@ router.use(function(req, res, next){
   }else{
     next(new Error('No Database Instance'));
   }
-})
+});
 
 /**
  * Some general functions for query db

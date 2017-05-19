@@ -1,7 +1,7 @@
 md-content.todo-list
   section(layout="column" layout-align="center center" layout-margin)
     div
-      h1 Today's Task List
+      h1 Hi! Today
     div(layout="row" layout-align="center center")
       md-button(ng-click="home.getAllTasks()") All Tasks
       md-button(ng-click="home.getAllTasks('true')") Completed Tasks
@@ -27,6 +27,10 @@ md-content.todo-list
             md-card-actions(layout="row" layout-align="end center")
               md-button.md-raised.md-primary(ng-click="home.deleteTasks(value['_id'])") Delete
               md-button.md-raised.md-warn(ng-click="home.showUpdateForm(value['_id'])") Update
+      div.customized-card(ng-if="!home.taskLists.data.length" layout="row")
+        md-card
+          md-card-content(layout="column" layout-align="center center")
+            div related task
       div.form(ng-if="home.showForm")
         div.form-title(ng-if="home.isUpdating") Update Task
         div.form-title(ng-if="!home.isUpdating") Create Task
@@ -52,8 +56,16 @@ md-content.todo-list
             md-button(type="submit" ng-if="!home.isUpdating") Submit
             md-button(type="submit" ng-if="home.isUpdating") Update
             md-button(ng-click="home.cleanForm()") Cancel
-    div(ng-if="!home.taskLists.data.length" layout="row")
-      div No related task
     //div(ng-if="home.errorMessage" layout="column" layout-align="center center")
     //  div(ng-repeat="err in home.errorMessage track by $index")
     //    div {{err}}
+
+    //md-fab-toolbar(md-direction="left")
+    //  md-fab-trigger.align-with-text
+    //    md-button.md-fab.md-primary
+    //  md-toolbar
+    //    md-fab-actions.md-toolbar-tools
+    //      md-button
+    //      md-button
+    //      md-button
+    //      md-button

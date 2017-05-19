@@ -18,7 +18,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 
   })
 
-  .controller('taskHomeController', function (httpCaller, $scope, hi) {
+.controller('taskHomeController', function (httpCaller, $scope, hi) {
 
   	var self = this;
 
@@ -46,7 +46,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 		self.cleanForm = function () {
 			self.showForm = false;
 			self.isUpdating = false;
-		}
+		};
 
 		self.getAllTaskStatus = function(data){
 			_.forEach(data, function (value, key) {
@@ -81,6 +81,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 				httpCaller
 					.createNewTask(self.newTask)
 					.then(function(data){
+						hi.callToast("Create Task Successfully!");
 						self.taskLists = data;
             self.serviceIsBusy = false;
 						self.cleanData();
@@ -113,6 +114,15 @@ angular.module('myApp.controllers', ['myApp.services'])
 					self.newTask.name = value.name;
 					self.newTask.status = value.status;
 					self.newTask.description = value.description;
+					self.replace = function(){
+						return new Promise(function(resolve, reject){
+							if(this.value.indexOf('today')){
+								resolve(data);
+							}else{
+								return self.reject(error);
+							}
+						})
+					}
 				}
 			});
 		};
@@ -132,6 +142,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 				httpCaller
 					.updateTask(self.newTask.id, self.newTask)
 					.then(function(data){
+						hi.callToast("Update Task Successfully!");
 						self.taskLists = data;
 						self.serviceIsBusy = false;
 						self.cleanForm();
@@ -144,7 +155,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 						}
 					})
 			}else{
-        hi.callToast('Can not update task');
+        hi.callToast('Can not update task, please input required data');
 				self.errorMessage.push('Can not update task');
 				self.serviceIsBusy = false;
 			}
@@ -203,6 +214,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 				httpCaller
 					.deleteTasks({'status': parameters})
 					.then(function (data) {
+						hi.callToast('Successfully Delete Task!');
 						self.taskLists = data;
 					}, function (err) {
             hi.callToast(err.message);
@@ -212,6 +224,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 				httpCaller
 					.deleteTasks({'id': parameters})
 					.then(function (data) {
+						hi.callToast('Successfully Delete Task!');
 						self.taskLists = data;
 					}, function(err){
             hi.callToast(err.message);

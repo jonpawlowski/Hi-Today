@@ -2,6 +2,9 @@
   margin: 0px;
   padding: 0px;
 }
+body{
+  min-width: 800px;
+}
 
 .todo-list{
   .customized-card{
@@ -10,6 +13,8 @@
       border: 1px solid lightgray;
       box-shadow: 3px 3px 4px lightgrey;
       margin: 0px 0px 10px 0px;
+      width: 400px;
+      height: 280px;
       md-card-title{
         font-weight: bold;
         text-transform: uppercase;
