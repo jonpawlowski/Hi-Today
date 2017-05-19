@@ -1,5 +1,5 @@
 ## Hi Today!
-___
+
 A well-functional __TODO__ list, which provides a powerful and highly performance daily task management and tracking system.
 
 Powered By: __Angularjs 1.x + Express 4.x + Nodejs 7.x + Mongodb *__
@@ -27,7 +27,7 @@ ___
 * Should have a user-friendly error notification system
 * Should have a developer-friendly server-side error notification system
 
-###Start!
+### Start!
 
 ```
 $ npm start;
