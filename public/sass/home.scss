@@ -7,6 +7,11 @@ body{
 }
 
 .todo-list{
+  .button-groups{
+    span{
+      margin-left: 7px;
+    }
+  }
   .customized-card{
     md-card{
       padding: 15px;

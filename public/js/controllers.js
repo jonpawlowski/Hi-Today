@@ -56,6 +56,20 @@ angular.module('myApp.controllers', ['myApp.services'])
 
 		self.getAllTasks = function(status){
 			self.serviceIsBusy = true;
+
+			//for tab active status
+			self.all = false;
+			self.pending = false;
+			self.completed = false;
+
+			if(status == undefined){
+				self.all = true;
+			}else if(status == 'true'){
+				self.completed = true;
+			}else{
+				self.pending = true;
+			}
+
 			httpCaller
 				.getAllTasks(status)
 				.then(function(data){

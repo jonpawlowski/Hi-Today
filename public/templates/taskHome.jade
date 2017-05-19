@@ -1,12 +1,20 @@
 md-content.todo-list
   section(layout="column" layout-align="center center" layout-margin)
-    div
-      h1 Hi! Today
     div(layout="row" layout-align="center center")
-      md-button(ng-click="home.getAllTasks()") All Tasks
-      md-button(ng-click="home.getAllTasks('true')") Completed Tasks
-      md-button(ng-click="home.getAllTasks('false')") Pending Tasks
-      md-button.md-primary(ng-click="home.showCreateForm()") New Task
+      h1 Hi! Today
+    div.button-groups(layout="row" layout-align="center center")
+      md-button(ng-click="home.getAllTasks()" ng-class="{'md-raised md-primary': home.all}")
+        i.fa.fa-tasks
+        span All Tasks
+      md-button(ng-click="home.getAllTasks('true')" ng-class="{'md-raised md-primary': home.completed}")
+        i.fa.fa-check-square-o
+        span Completed Tasks
+      md-button(ng-click="home.getAllTasks('false')" ng-class="{'md-raised md-primary': home.pending}")
+        i.fa.fa-coffee
+        span Pending Tasks
+      md-button.md-primary(ng-click="home.showCreateForm()")
+        i.fa.fa-plus
+        span New Task
     div(ng-if="home.serviceIsBusy")
       md-progress-circular.md-accent(md-diameter="40")
     div(layout="row" layout-align="space-around start")
@@ -30,7 +38,7 @@ md-content.todo-list
       div.customized-card(ng-if="!home.taskLists.data.length" layout="row")
         md-card
           md-card-content(layout="column" layout-align="center center")
-            div related task
+            div no related task
       div.form(ng-if="home.showForm")
         div.form-title(ng-if="home.isUpdating") Update Task
         div.form-title(ng-if="!home.isUpdating") Create Task
