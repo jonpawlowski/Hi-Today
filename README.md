@@ -6,8 +6,7 @@ Powered By: __Angularjs 1.x + Express 4.x + Nodejs 7.x + Mongodb *__
 
 ___
 
-###Hi Today! Basic requirements
-___
+### Hi Today! Basic requirements
 
 **Functional Requirements**
 >
@@ -17,7 +16,6 @@ ___
 * Show tasks __day by day__.
 * Should have a __history page__ to show all finished tasks.
 
-___
 
 **Non-functional Requirements**
 >
