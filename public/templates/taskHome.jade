@@ -35,7 +35,7 @@ md-content.todo-list
             md-card-actions(layout="row" layout-align="end center")
               md-button.md-raised.md-primary(ng-click="home.deleteTasks(value['_id'])") Delete
               md-button.md-raised.md-warn(ng-click="home.showUpdateForm(value['_id'])") Update
-      div.customized-card(ng-if="!home.taskLists.data.length" layout="row")
+      div.customized-card(ng-if="!home.taskLists.data.length && !home.serviceIsBusy" layout="row")
         md-card
           md-card-content(layout="column" layout-align="center center")
             div no related task

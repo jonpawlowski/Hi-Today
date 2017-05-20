@@ -17,6 +17,13 @@ var express = require('express'),
   mongoose = require('mongoose'),
   task = require('./database/task_schema');
   var _ = require('lodash');
+  var cluster = require('cluster');
+
+//keep server online if there is some error
+process.on('uncaughtException', function (err) {
+  console.error(err);
+  console.log("Node NOT Exiting...");
+});
 
 var app = module.exports = express();
 

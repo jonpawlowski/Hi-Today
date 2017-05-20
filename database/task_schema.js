@@ -13,7 +13,7 @@ var Schema = mongoose.Schema;
 
 var taskSchema = new Schema({
   createdBy: String,
-  name: { type: String, required: true },
+  name: { type: String, required: true , unique: true},
   status: { type: Boolean, required: true },
   description: String,
   created_at: Date,

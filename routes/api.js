@@ -29,7 +29,8 @@ router.use(function(req, res, next){
 
 function getAll (req, res) {
   req.task_db.find({}, function(err, data){
-    if(err) res.send(err);
+    if(err) next(new Error(err));
+    data = data.reverse();
     res.json(data);
   })
 }
@@ -60,7 +61,7 @@ router.get('/', function(req, res, next){
   }else{
     if(req.query.status == 'false' || req.query.status == 'true' ){
       req.task_db.find(req.query, function(err, data){
-        if(err) res.send(err);
+        if(err) next(new Error(err));
         res.json(data);
       })
     }else{
@@ -84,7 +85,7 @@ router.post('/', function(req, res, next){
       if(!data.length){
         var temp = req.task_db(req.body);
         temp.save(function (err) {
-          if(err) res.send(err);
+          if(err) next(new Error(err));
           getAll(req, res);
         });
       }else{
@@ -106,7 +107,7 @@ router.post('/', function(req, res, next){
 router.delete('/', function(req, res, next){
   if(!_.isEmpty(req.query)){
     req.task_db.find(req.query, function(err, data){
-      if(err) res.send(err);
+      if(err) next(new Error(err));
       if(data.length){
         req.task_db.deleteMany(req.query).then(function () {
           getAll(req, res);
@@ -129,17 +130,10 @@ router.delete('/', function(req, res, next){
 
 router.put('/', function(req, res, next){
   if(!_.isEmpty(req.body) && !_.isEmpty(req.query.id)){
-    req.task_db.find({name: req.body.name}, function (err, data) {
-      if(!data.length){
-        req.task_db.findByIdAndUpdate(req.query.id, req.body, function(err){
-          if(err) res.send(err);
-          getAll(req, res);
-        })
-      }else{
-        next(new Error('Task name could not be same'));
-      }
-    });
-
+    req.task_db.findByIdAndUpdate(req.query.id, req.body, function(err){
+      if(err) next(new Error(err));
+      getAll(req, res);
+    })
   }else{
     next(new Error('Can not find target to update'));
   }
