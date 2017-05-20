@@ -74,6 +74,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 				.getAllTasks(status)
 				.then(function(data){
 					self.taskLists = data;
+					//push all the task status to an object
 					self.getAllTaskStatus(data.data);
 					self.serviceIsBusy = false;
 				}, function(err){
@@ -82,7 +83,6 @@ angular.module('myApp.controllers', ['myApp.services'])
 					self.serviceIsBusy = false;
 				})
 		};
-
 		/**
 		 * @valid
 		 * this is parameter is pass from the frontend code

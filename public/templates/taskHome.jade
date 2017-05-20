@@ -30,8 +30,8 @@ md-content.todo-list
               div.task-status(ng-if="!value.status") Status: Pending
               div.task-description(ng-if="value.description") Description: {{value.description}}
               div.task-created-by(ng-if="value.createdBy") Created By: {{value.createdBy}}
-              div.task-created-at Created At: {{value.created_at}}
-              div.task-updated-at Updated At: {{value.updated_at}}
+              div.task-created-at Created At: {{value.created_at | transferTimeFormat}}
+              div.task-updated-at Updated At: {{value.updated_at | transferTimeFormat}}
             md-card-actions(layout="row" layout-align="end center")
               md-button.md-raised.md-primary(ng-click="home.deleteTasks(value['_id'])") Delete
               md-button.md-raised.md-warn(ng-click="home.showUpdateForm(value['_id'])") Update
