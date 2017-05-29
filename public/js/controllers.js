@@ -4,8 +4,8 @@
 
 angular.module('myApp.controllers', ['myApp.services'])
 
-  .controller('AppCtrl', function ($scope, $http) {
-
+  .controller('AppCtrl', function ($scope, $http, $location) {
+		$scope.hideWelcomeBox = false;
 		$http({
 			method: 'GET',
 			url: '/api/name'
@@ -16,6 +16,10 @@ angular.module('myApp.controllers', ['myApp.services'])
 			$scope.name = 'Error!';
 		});
 
+		$scope.gotoTasks = function(){
+			$scope.hideWelcomeBox = true;
+			$location.path('task');
+		}
   })
 
 .controller('taskHomeController', function (httpCaller, $scope, hi) {

@@ -5,7 +5,9 @@
 body{
   min-width: 800px;
 }
-
+.welcome-box{
+  
+}
 .todo-list{
   .button-groups{
     span{
@@ -64,6 +66,28 @@ body{
       font-weight: bold;
       margin-bottom: 20px;
       margin-top: 5px;
+    }
+  }
+  .fadein-form{
+    opacity: 1;
+    animation-name: fadeInForm;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 0.5s;
+  }
+  md-card{
+    opacity: 1;
+    animation-name: fadeInForm;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 1s;
+  }
+  @keyframes fadeInForm {
+    0% {
+      opacity: 0;
+    }
+    100%{
+      opacity: 1;
     }
   }
 }
