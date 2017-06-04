@@ -1,7 +1,7 @@
 md-content.todo-list
   section(layout="column" layout-align="center center" layout-margin)
     div(layout="row" layout-align="center center")
-      h1 Hi! Today
+      div.home-title(ng-click="home.gotoWelcome()") Hi! Today
     div.button-groups(layout="row" layout-align="center center")
       md-button(ng-click="home.getAllTasks()" ng-class="{'md-raised md-primary': home.all}")
         i.fa.fa-tasks
@@ -26,12 +26,24 @@ md-content.todo-list
                 md-checkbox(ng-checked="home.taskStatus[value['_id']]" ng-click="home.completeTask(value['_id'])")
                   div.task-name {{value.name}}
             md-card-content
-              div.task-status(ng-if="value.status") Status: Completed
-              div.task-status(ng-if="!value.status") Status: Pending
-              div.task-description(ng-if="value.description") Description: {{value.description}}
-              div.task-created-by(ng-if="value.createdBy") Created By: {{value.createdBy}}
-              div.task-created-at Created At: {{value.created_at | transferTimeFormat}}
-              div.task-updated-at Updated At: {{value.updated_at | transferTimeFormat}}
+              div.task-status(ng-if="value.status" layout="row")
+                div.item-title(flex="30") Status:
+                div(flex ) Completed
+              div.task-status(ng-if="!value.status" layout="row")
+                div.item-title(flex="30") Status:
+                div(flex) Pending
+              div.task-description(ng-if="value.description" layout="row")
+                div.item-title(flex="30") Description:
+                div(flex) {{value.description}}
+              div.task-created-by(ng-if="value.createdBy" layout="row")
+                div.item-title(flex="30") Created By:
+                div(flex) {{value.createdBy}}
+              div.task-created-at(layout="row")
+                div.item-title(flex="30") Created At:
+                div(flex) {{value.created_at | transferTimeFormat}}
+              div.task-updated-at(layout="row")
+                div.item-title(flex="30") Updated At:
+                div(flex) {{value.updated_at | transferTimeFormat}}
             md-card-actions(layout="row" layout-align="end center")
               md-button.md-raised.md-primary(ng-click="home.deleteTasks(value['_id'])") Delete
               md-button.md-raised.md-warn(ng-click="home.showUpdateForm(value['_id'])") Update

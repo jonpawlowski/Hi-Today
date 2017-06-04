@@ -2,18 +2,6 @@ extends layout
 
 block body
   div(ng-controller='AppCtrl' ng-cloak)
-    md-content.homepage(layout="column" layout-align="center" ng-if="!hideWelcomeBox")
-      md-card
-        img.md-card-image(src="/images/homepage_card.jpeg")
-        md-card-title
-         md-card-title-text
-          span.md-headline Welcome to Steven's Todo-List
-        md-card-content
-          p A well-functional TODO list, which provides a powerful and highly performance daily task management and tracking system. Powered By: Angularjs 1.x + Express 4.x + Nodejs 7.x + Mongodb.
-        md-card-actions(layout="row" layout-align="end center")
-          md-button(ng-click="gotoTasks()") Go To Todo-List
-          md-button
-            a(href="http://stevenziu.github.io" target="_blank") Go To Steven's Personal Page
     div(ng-view)
 
   //vendors

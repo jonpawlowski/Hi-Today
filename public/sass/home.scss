@@ -1,6 +1,21 @@
 * {
   margin: 0px;
   padding: 0px;
+  md-card{
+    opacity: 1;
+    animation-name: fadeInForm;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 1s;
+  }
+  @keyframes fadeInForm {
+    0% {
+      opacity: 0;
+    }
+    100%{
+      opacity: 1;
+    }
+  }
 }
 body{
   min-width: 800px;
@@ -12,11 +27,6 @@ body{
   a{
     text-decoration: none;
   }
-  md-card{
-    width: 45%;
-    height: auto;
-    margin: 0 auto;
-  }
   md-card-title-text{
     font-family: 'Courgette', cursive;
   }
@@ -26,9 +36,31 @@ body{
   .md-button{
     font-family: 'Fanwood Text', Serif;
   }
+  md-card{
+    width: 45%;
+    height: auto;
+    margin: 0 auto;
+  }
 }
 
+//task homepage
 .todo-list{
+  .item-title{
+    font-family: 'Trocchi', serif;
+    color: black;
+  }
+  .item-title + div{
+    font-family: 'Mate', serif;
+  }
+  .home-title{
+    font-size: 24px;
+    color: black;
+    font-family: 'Courgette', cursive;
+    &:hover{
+      color: lightslategrey;
+      cursor: pointer;
+    }
+  }
   .button-groups{
     span{
       margin-left: 7px;
@@ -41,7 +73,7 @@ body{
       box-shadow: 3px 3px 4px lightgrey;
       margin: 0px 0px 10px 0px;
       width: 400px;
-      height: 280px;
+      height: auto;
       md-card-title{
         font-weight: bold;
         text-transform: uppercase;
@@ -94,6 +126,13 @@ body{
     animation-iteration-count: 1;
     animation-timing-function: ease-in;
     animation-duration: 0.5s;
+  }
+  md-card-content{
+    border-top: 1px solid lightgray;
+    padding-top: 15px;
+  }
+  md-card-title{
+    padding-bottom: 10px;
   }
   md-card{
     opacity: 1;

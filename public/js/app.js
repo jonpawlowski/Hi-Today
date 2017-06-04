@@ -27,6 +27,11 @@ angular.module('myApp', [
       templateUrl: 'build-templates/taskHome.html',
       controller: 'taskHomeController',
       controllerAs: 'home'
+    })
+    .when('/', {
+      templateUrl: 'build-templates/welcome.html',
+      controller: 'welcomeController',
+      controllerAs: 'wel'
     });
 
   $locationProvider

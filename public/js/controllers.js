@@ -4,30 +4,38 @@
 
 angular.module('myApp.controllers', ['myApp.services'])
 
-  .controller('AppCtrl', function ($scope, $http, $location) {
-		$scope.hideWelcomeBox = false;
-		$http({
-			method: 'GET',
-			url: '/api/name'
-		})
-		.then(function (data, status, headers, config) {
-			$scope.name = data.data.name;
-		},function (data, status, headers, config) {
-			$scope.name = 'Error!';
-		});
+.controller('AppCtrl', function ($scope, $http, $location) {
+	$scope.hideWelcomeBox = false;
+	$http({
+		method: 'GET',
+		url: '/api/name'
+	})
+	.then(function (data, status, headers, config) {
+		$scope.name = data.data.name;
+	},function (data, status, headers, config) {
+		$scope.name = 'Error!';
+	});
 
-		$scope.gotoTasks = function(){
-			$scope.hideWelcomeBox = true;
-			$location.path('task');
-		};
+})
 
-  })
+.controller('welcomeController', function ($location) {
 
-.controller('taskHomeController', function (httpCaller, $scope, hi) {
+	var self = this;
+
+	this.gotoTasks = function(){
+		$location.path('task');
+	};
+
+})
+
+.controller('taskHomeController', function (httpCaller, $scope, hi, $location) {
 
   	var self = this;
 
 		self.taskStatus = {};
+		self.gotoWelcome = function () {
+			$location.path('/')
+		};
 
 		self.initHomepage = function() {
 			self.serviceIsBusy = false;
@@ -46,6 +54,9 @@ angular.module('myApp.controllers', ['myApp.services'])
 			 * store all the errors
 			 * **/
 			self.errorMessage = [];
+		};
+		self.scrollTop = function(){
+			window.scrollTo(0, 0);
 		};
 
 		self.cleanForm = function () {
@@ -120,6 +131,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 		};
 
 		self.showUpdateForm= function(id){
+			self.scrollTop();
 			//control submit button type
 			self.showForm = true;
 			self.isUpdating = true;
@@ -229,6 +241,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 		};
 
 		self.deleteTasks = function(parameters){
+			self.scrollTop();
 			if(parameters === 'false' || parameters === 'true'){
 				httpCaller
 					.deleteTasks({'status': parameters})
