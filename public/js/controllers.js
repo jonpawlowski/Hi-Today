@@ -19,7 +19,8 @@ angular.module('myApp.controllers', ['myApp.services'])
 		$scope.gotoTasks = function(){
 			$scope.hideWelcomeBox = true;
 			$location.path('task');
-		}
+		};
+
   })
 
 .controller('taskHomeController', function (httpCaller, $scope, hi) {

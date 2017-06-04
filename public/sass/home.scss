@@ -5,9 +5,29 @@
 body{
   min-width: 800px;
 }
-.welcome-box{
-  
+
+//homepege
+.homepage{
+  height: 100%;
+  a{
+    text-decoration: none;
+  }
+  md-card{
+    width: 45%;
+    height: auto;
+    margin: 0 auto;
+  }
+  md-card-title-text{
+    font-family: 'Courgette', cursive;
+  }
+  md-card-content{
+    font-family: 'Courgette', cursive;
+  }
+  .md-button{
+    font-family: 'Fanwood Text', Serif;
+  }
 }
+
 .todo-list{
   .button-groups{
     span{
