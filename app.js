@@ -9,8 +9,10 @@ var express = require('express'),
   errorHandler = require('errorhandler'),
   morgan = require('morgan'),
   chalk = require('chalk'),
+  // application entry point
   routes = require('./routes'),
   api = require('./routes/api'),
+  authentication = require('./routes/authentication'),
   http = require('http'),
   path = require('path'),
   sass = require('node-sass-middleware'),
@@ -39,6 +41,7 @@ var app = module.exports = express();
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+app.set('secret', config.secret);
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -107,11 +110,11 @@ db.once('open', function(){
         }else{
           console.log(chalk.green('Authentication Key Initialized'));
         }
-      })
+      });
     }else{
       console.log(chalk.green('Authentication Key Initialized'));
     }
-  })
+  });
 
 });
 
@@ -155,11 +158,10 @@ if (env === 'production') {
 /**
  * Routes
  */
-//todo clean this one
-app.get('/api/name', api.name);
 
 //CRUD API for Application
 app.use('/api/task', api.task);
+app.use('/auth', authentication);
 
 // serve index and view partials
 app.use('/', routes.index);

@@ -3,17 +3,25 @@
  */
 var express = require('express');
 var router = express.Router();
+var jwt = require('jsonwebtoken');
 var _ = require('lodash');
-
-exports.name = function (req, res) {
-  res.json({
-    name: 'Steven'
-  });
-};
 
 /**
  * API define here
  * **/
+router.use(function(req, res, next){
+  if(req.body.token || req.query.token){
+    var token = req.body.token || req.query.token;
+    jwt.verify(token, req.app.get('secret'), function(err, decoded){
+      if(err){
+        res.status(403).send('Forbidden! Token is incorrect');
+      }
+      next();
+    });
+  }else{
+    res.status(403).send('Forbidden! Token missing');
+  }
+});
 
 router.use(function(req, res, next){
   if(req.task_db){
