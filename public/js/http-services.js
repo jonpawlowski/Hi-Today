@@ -14,6 +14,14 @@ angular.module('myApp.services')
 
 function httpCaller ($http) {
   var self = this;
+  // post to authentication route
+  self.auth = function(key){
+    return $http({
+      method: 'POST',
+      url: '/auth',
+      data: {key: key}
+    });
+  };
   //get
   self.getAllTasks = function(status) {
     if(status === 'true' || status === 'false'){

@@ -1,0 +1,7 @@
+md-content
+  form(name='authForm' ng-submit='auth.submitKey($valid)')
+    md-input-container.md-block
+      label Please input authentication key
+      input(required name='authForm.key' ng-model='auth.authForm.key')
+    div
+      md-button(type='submit') Submit

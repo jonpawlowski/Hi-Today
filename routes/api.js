@@ -40,7 +40,7 @@ function getAll (req, res) {
     if(err) next(new Error(err));
     data = data.reverse();
     res.json(data);
-  })
+  });
 }
 
 /**

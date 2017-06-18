@@ -28,6 +28,11 @@ angular.module('myApp', [
       controller: 'taskHomeController',
       controllerAs: 'home'
     })
+    .when('/auth', {
+      templateUrl: 'build-templates/authentication.html',
+      controller: 'authController',
+      controllerAs: 'auth'
+    })
     .when('/', {
       templateUrl: 'build-templates/welcome.html',
       controller: 'welcomeController',
