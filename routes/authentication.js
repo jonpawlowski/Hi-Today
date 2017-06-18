@@ -6,14 +6,23 @@ module.exports = authRouter;
 
 // process token included in the post body
 authRouter.post('/', function(req, res, next){
-
-});
-
-// process token included in the request query string
-authRouter.get('/', function(req, res, next){
-    if(req.query.token){
-        res.send(req.query.token);
-    }else{
-        res.status(400).send('Key is required');
-    }
+	if(req.body.key){
+		// store db instance
+		var keys = req.keys_db;
+		var inputKey = req.body.key;
+		// valid the key
+		keys.find({key: inputKey}, function(err, data){
+			if(err){
+				res.status(400).send('Password is incorrect');
+			}
+			jwt.sign(res.app.get('secret'), data[0].key, function(err, token){
+				if(err) res.status(500).send('Token can not be generated');
+				if(token){
+					res.status(200).send(token);
+				}
+			});
+		});
+	}else{
+		res.status(400).send('Key can not be empty');
+	}
 });
