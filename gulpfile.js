@@ -15,7 +15,7 @@ gulp.task('watch', function () {
 });
 
 gulp.task('compileStyle', function () {
-    return gulp.src('public/sass/*.scss')
+    return gulp.src('public/sass/**/*.scss')
         .pipe(sass().on('error', function(err){console.log("Error Found: "+err.message)}))
         .pipe(gulp.dest('public/css/build/'))
         .on('error', swallowError);

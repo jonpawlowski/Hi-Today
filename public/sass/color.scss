@@ -1,0 +1,219 @@
+// Dark
+$black: #000;
+$black-1: #030303;
+$dark-jungle-green: #1a1a1a;
+$charcoal: #2f3f47;
+
+// White or Gray
+$ash-grey: #abb3bd;
+$black-2: #050708;
+$blanched-almond: #ffe5cc;
+$dark-gray: #a6a8ab;
+$dark-jungle-green-1: #231f20;
+$davy-grey: #5d5f60;
+$davy-grey-2: #5b5b5b;
+$dim-gray: #666;
+$glitter: #e1eef5;
+$isabelline: #efefef;
+$light-gray: #d4d4d4;
+$manatee-2: #979797;
+$manatee: #9b9b9b;
+$manatee-1: #999;
+$munsell-1: #f3f3f3;
+$munsell: #f2f2f2;
+$pastel-gray-1: #cbcbcb;
+$pastel-gray: #ccc;
+$platinum: #e6e6e6;
+$silver-1: #bdbfc1;
+$silver: #bbbdbf;
+$silver-2: #C6C6C6;
+$taupe-gray: #8f8e94;
+$article-time: #777777;
+$taupe: #333;
+$timberwolf-1: #d7d7d7;
+$timberwolf: #d8d8d8;
+$white-smoke-1: #f7f7f7;
+$white-smoke-2: #f4f4f4;
+$white-smoke: #f8f8f2;
+$white1: #fefefe;
+$white: #fff;
+$dark-menu: #222;
+$trans-50: rgba(0, 0, 0, 0.5);
+$trans-0: rgba(0, 0, 0, 0);
+$trans-100: rgba(0, 0, 0, 1);
+$black-333: #333333;
+$alto: #dadada;
+$another-gray: #aaa;
+$another-light-gray: #f9f9f9;
+$dusty-gray: #999999;
+$mine-shaft: #333333;
+$mine-shaft-2: #222222;
+$dove-gray: #666666;
+$cadet: #586b75;
+$cadet-trans-50: rgba(88, 107, 117, 0.5);
+$cadet-trans-90: rgba(88, 107, 117, 0.9);
+$cadet-trans-95: rgba(88, 107, 117, 0.95);
+$outer-space-trans-80: rgba(61, 81, 91, 0.8);
+$cool-grey: #8a989f;
+$pm-gray: #e1e1e1;
+$lavender-gray: #c5cfd4;
+$comments-gray: #5d6b72;
+$bottom-menu: #767676;
+$post-mag-read-more: #e5e5e5;
+
+// Blue
+$scmp-blue-logo: #0064ba;
+$blue-azure: #0084ff;
+$blue-gray: #67aacf;
+$blue-sponsor: #3bc1f4;
+$bright-cerulean: #2eade0;
+$dark-cerulean: #01517a;
+$dark-midnight-blue1: #00376d;
+$dark-midnight-blue: #00386d;
+$dodger-blue: #1da1f2;
+$lapis-lazuli: #3c5c95;
+$mariner: #3b5998;
+$pale-cornflower-blue: #adcce4;
+$prussian-blue-1: #002853;
+$prussian-blue: #002d57;
+$rich-electric-blue: #0098dd;
+$sea-blue: #006391;
+$steel-blue: #317daa;
+$yale-blue: #0e4da0;
+$oxford-blue: #000535;
+$cool-black: #002675;
+$lavender-mist: #d6e5f1;
+$cornflower-blue: #0a4f7e;
+$limed-spruce: #2f3f47;
+$limed-spruce-2: #3e515b;
+$limed-spruce-3: #3d515b;
+$limed-spruce-2-85:  rgba(62, 81, 91, 0.85);
+$limed-spruce-dull: #202a2f;
+$cerulean: #00aff0;
+$corn-flower-blue: #6cadd0;
+$platnium: #dce2e5;
+
+// Green
+$aquamarine: #6bfed4;
+$blue-green: #19a3b4;
+$dark-cyan: #099;
+$jade: #009b7a;
+$jade-1: #009b7b;
+$shamrock: #5bc3af;
+$tea-green1: #d7fea5;
+$tea-green: #c8f7a6;
+$ufo-green: #43d854;
+$mantis: #6c6;
+$loblolly: #c5cfd3;
+$loblolly-2: #c5cfd4;
+
+
+// Orange, Red, Pink
+$cadmium-red-1: #e5001c;
+$cadmium-red: #e5001d;
+$coral-red1: #fc472f;
+$coral-red: #fc472e;
+$fluorescent-pink: #fc227c;
+$hollywood-cerise: #e8008c;
+$tamarillo: #9a1213;
+$vermilion: #f40;
+
+// Purple
+$blue-violet: #893cd8;
+$royal-purple: #774ab3;
+
+// Yellow
+$jasmine: #feeb7b;
+$gorse: #ffe850;
+$monza: #ce001a;
+$abbey: #2f3f47;
+$alpine: #b58f32;
+
+// Orange
+$deep-carrot-orange: #f17628;
+$deep-carrot-orange-trans-50: rgba(241, 118, 40, 0.5);
+
+// Other
+$subdance: #caa45c;
+$driftwood: #a5864b;
+
+/* Override Materialize */
+$primary-color: $sea-blue;
+
+// TWIA colors
+$dark-red: #bc0000;
+$red: #d22328;
+$medium-violet-red: #b20289;
+$pale-wood: #f8f8f2;
+$pale-blue: #00aff0;
+$lake-blue: #7fb1c8;
+$gold: #b58f32;
+$pale-gold: #dac799;
+// comment loader
+$color-java-approx: #f8f8f2;
+//section colors
+$long-reads: #f5821e;
+$interior: #8c73b4;
+$food-drink: #9bc83c;
+$travel: #0087b9;
+$fashion: #d22328;
+$books: #00aff0;
+$arts-music: $books;
+// stylemag color
+$news-trend: #bba425;
+$fashion-beauty: #af2227;
+$people-events: #681f87;
+$travel-food: #1395ff;
+$watches-jewelery: #c86609;
+$tech-design: $pale-blue;
+$generic-color: $news-trend;
+
+// twia color
+$blue-grey-light-1: #8a989f;
+$blue-grey-light-2: #9aa5aa;
+$blue-grey-light-3: #c5cfd4;
+$blue-grey-light-4: #dce2e5;
+$blue-grey-light-5: #8ca0aa;
+$blue-grey-light-6: #b4c1c8;
+$blue-grey-dark: #2f3f47;
+$yellow: #ffe850;
+$yellow-light: #ffeb50;
+$pure-cyan: #00c9ed;
+$warning-color-footer: #ff4e00;
+
+// column colors
+$dictator: #575757;
+//social media colors
+$facebook: #3b5998;
+$twitter: #4099ff;
+$reddit: #ff4033;
+$linkedin: #007587;
+$google-plus: #df4a32;
+$sina: #f91c2f;
+$instagram: #8b20aa;
+//grays
+$white: #fff;
+$taupe-75: rgba(51, 51, 51, 0.70);
+$lightest-gray: #f0f0f0;
+$pale-lighter-gray: #f3f3f3;
+$lighter-gray: #d6d6d6;
+$pale-light-gray: #ccc;
+$lighter-light-gray: #bbb;
+$silver-gray: #a4a4a4;
+$light-gray: #999;
+$very-light-gray: #ddd;
+$slightly-light-gray: #888;
+$pale-medium-gray: #7d7d7d;
+$medium-lighter-gray: #777;
+$medium-light-gray: #666;
+$medium-gray: #555;
+$medium-dark-gray: #444;
+$medium-dark-gray-trans80: rgba($medium-dark-gray, 0.8);
+$medium-slightly-darker-gray: #434343;
+$medium-darker-gray: #333;
+$dark-gray: #222;
+$darker-gray: #111;
+$dark-gray-text-on: #cacbcc;
+$grayish-blue: #bbc4c8;
+$black: #000;
+$lighter-gray: #657278;
