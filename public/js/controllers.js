@@ -36,18 +36,23 @@ angular.module('myApp.controllers', ['myApp.services'])
 			.auth(self.authForm.key)
 			.then(function(token){
 				$rootScope.token = token;
-				console.log($rootScope.token);
+				$rootScope.auth = true;
+				$location.path('/task');
 			}, function(err){
 				if(err) hi.callToast(err.data);
 			});
 	};
 })
 
-.controller('taskHomeController', function (httpCaller, $scope, hi, $location) {
+.controller('taskHomeController', function (httpCaller, $scope, hi, $location, $rootScope) {
 
 	var self = this;
-
 	self.taskStatus = {};
+	self.auth = $rootScope.auth;
+	if($rootScope.token){
+		self.token = $rootScope.token.data;
+	}
+
 	self.gotoWelcome = function () {
 		$location.path('/');
 	};
@@ -55,7 +60,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 	self.initHomepage = function() {
 		self.serviceIsBusy = false;
 		self.cleanData();
-		self.getAllTasks();
+		self.getAllTasks(self.token);
 	};
 
 	self.cleanData = function(){
@@ -70,8 +75,8 @@ angular.module('myApp.controllers', ['myApp.services'])
 		 * **/
 		self.errorMessage = [];
 	};
+
 	self.scrollTop = function(){
-		var window = window;
 		window.scrollTo(0, 0);
 	};
 
@@ -81,20 +86,17 @@ angular.module('myApp.controllers', ['myApp.services'])
 	};
 
 	self.getAllTaskStatus = function(data){
-		var _ = _;
 		_.forEach(data, function (value, key) {
-				self.taskStatus[value._id] = value.status;
+			self.taskStatus[value._id] = value.status;
 		});
 	};
 
-	self.getAllTasks = function(status){
+	self.getAllTasks = function(token, status){
 		self.serviceIsBusy = true;
-
 		//for tab active status
 		self.all = false;
 		self.pending = false;
 		self.completed = false;
-
 		if(status === undefined){
 			self.all = true;
 		}else if(status == 'true'){
@@ -102,9 +104,8 @@ angular.module('myApp.controllers', ['myApp.services'])
 		}else{
 			self.pending = true;
 		}
-
 		httpCaller
-			.getAllTasks(status)
+			.getAllTasks(token, status)
 			.then(function(data){
 				self.taskLists = data;
 				//push all the task status to an object
@@ -126,7 +127,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 		self.serviceIsBusy = true;
 		if(self.newTask.status && self.newTask.name && valid){
 			httpCaller
-				.createNewTask(self.newTask)
+				.createNewTask(self.token, self.newTask)
 				.then(function(data){
 					hi.callToast("Create Task Successfully!");
 					self.taskLists = data;
@@ -188,7 +189,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 		 * **/
 		if(self.newTask.id && self.newTask !== null && typeof self.newTask == 'object' && valid){
 			httpCaller
-				.updateTask(self.newTask.id, self.newTask)
+				.updateTask(self.token, self.newTask.id, self.newTask)
 				.then(function(data){
 					hi.callToast("Update Task Successfully!");
 					self.taskLists = data;
@@ -222,7 +223,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 			if(value['_id'] == taskId){
 				if(value['status']){
 					httpCaller
-						.updateTask(value['_id'], {status: false})
+						.updateTask(self.token, value['_id'], {status: false})
 						.then(function(data){
 							self.taskLists = data;
 							self.taskStatus[value['_id']] = false;
@@ -238,7 +239,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 						})
 				}else{
 					httpCaller
-						.updateTask(value['_id'], {status: true})
+						.updateTask(self.token, value['_id'], {status: true})
 						.then(function(data){
 							self.taskLists = data;
 							self.taskStatus[value['_id']] = true;
@@ -261,7 +262,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 		self.scrollTop();
 		if(parameters === 'false' || parameters === 'true'){
 			httpCaller
-				.deleteTasks({'status': parameters})
+				.deleteTasks(self.token, {'status': parameters})
 				.then(function (data) {
 					hi.callToast('Successfully Delete Task!');
 					self.taskLists = data;
@@ -271,7 +272,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 				});
 		}else if(parameters){
 			httpCaller
-				.deleteTasks({'id': parameters})
+				.deleteTasks(self.token, {'id': parameters})
 				.then(function (data) {
 					hi.callToast('Successfully Delete Task!');
 					self.taskLists = data;

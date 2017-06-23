@@ -114,6 +114,8 @@ router.post('/', function(req, res, next){
 
 router.delete('/', function(req, res, next){
   if(!_.isEmpty(req.query)){
+    // delete token before pass it to db query
+    delete req.query.token;
     req.task_db.find(req.query, function(err, data){
       if(err) next(new Error(err));
       if(data.length){

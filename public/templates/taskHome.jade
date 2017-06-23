@@ -1,4 +1,4 @@
-md-content.todo-list
+md-content.todo-list(ng-if="home.auth")
   section(layout="column" layout-align="center center" layout-margin)
     div(layout="row" layout-align="center center")
       div.home-title(ng-click="home.gotoWelcome()") Hi! Today
@@ -76,3 +76,11 @@ md-content.todo-list
             md-button(type="submit" ng-if="!home.isUpdating") Submit
             md-button(type="submit" ng-if="home.isUpdating") Update
             md-button(ng-click="home.cleanForm()") Cancel
+
+md-content.todo-list(ng-if="!home.auth")
+  section(layout="column" layout-align="center center" layout-margin)
+    div 
+      span Please 
+      span 
+        a(href='/#!/auth') Verify
+      span First!
